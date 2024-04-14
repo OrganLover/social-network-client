@@ -11,6 +11,7 @@
 	},
 	"dependencies": {
 		"i18next": "^23.11.1",
+		"i18next-browser-languagedetector": "^7.2.1",
 		"ky": "^1.2.3",
 		"mobx": "^6.12.3",
 		"mobx-react-lite": "^4.0.7",
