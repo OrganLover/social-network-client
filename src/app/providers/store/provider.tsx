@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react';
 
-import MainStoreContext, { MainStoreContextValue } from './context';
+import MainStoreContext, { MainStore } from './context';
 
 type Props = {
 	children: ReactNode;
-	value: MainStoreContextValue;
+	value: MainStore;
 };
 
 const StoreProvider = ({ children, value }: Props) => {

@@ -1,5 +1,3 @@
-import { getAuthorized } from './auth/auth';
-
-const auth = { getAuthorized };
+import auth from './auth/auth';
 
 export { auth };

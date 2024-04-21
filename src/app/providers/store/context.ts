@@ -2,11 +2,11 @@ import { createContext } from 'react';
 
 import UserStore from './user/store';
 
-export type MainStoreContextValue = {
+export type MainStore = {
 	user: UserStore;
 };
 
-export const createMainStoreContextValue = (): MainStoreContextValue => {
+export const createMainStoreContextValue = (): MainStore => {
 	return {
 		user: new UserStore(),
 	};

@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import AuthLayout from './auth/auth';
 import MainLayout from './main/main';
 import { LAYOUT } from './layout.constant';
+import { Container } from './layout.css';
 
 import type { LayoutProps } from './layout.interface';
 
@@ -23,7 +24,7 @@ const Layout = ({ layoutType }: LayoutProps) => {
 		}
 	}, [layoutType]);
 
-	return layout;
+	return <Container>{layout}</Container>;
 };
 
 export default Layout;

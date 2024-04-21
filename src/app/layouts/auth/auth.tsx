@@ -1,5 +1,7 @@
+import { AuthPage } from '@pages';
+
 const AuthLayout = () => {
-	return <div>auth layout</div>;
+	return <AuthPage />;
 };
 
 export default AuthLayout;

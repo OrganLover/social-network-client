@@ -11,4 +11,29 @@ export type UserProfile = {
 	avatarPath: string | null;
 };
 
-export type GetAuthorizedResponsePayload = User | undefined;
+export type RegisterUserRequestPayload = {
+	email: string;
+	password: string;
+	userName: string;
+};
+
+export type RegisterUserResponsePayload = {
+	token: string;
+	user: User;
+};
+
+export type LoginUserRequestPayload = Pick<
+	RegisterUserRequestPayload,
+	'email' | 'password'
+>;
+
+export type LoginUserResponsePayload = RegisterUserResponsePayload;
+
+export type GetAuthorizedResponsePayload = Pick<
+	RegisterUserResponsePayload,
+	'user'
+>;
+
+export type LogoutUserResponsePayload = {
+	success: boolean;
+};

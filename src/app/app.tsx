@@ -1,9 +1,8 @@
 import { useMemo } from 'react';
 
 import AppContent from './components/app-content/app-content';
-import { StoreProvider } from './providers';
 import { createMainStoreContextValue } from './providers/store/context';
-import I18nProvider from './providers/i18n/provider';
+import Providers from './providers';
 
 const App = () => {
 	const mainStore = useMemo(() => {
@@ -11,11 +10,9 @@ const App = () => {
 	}, []);
 
 	return (
-		<StoreProvider value={mainStore}>
-			<I18nProvider>
-				<AppContent />
-			</I18nProvider>
-		</StoreProvider>
+		<Providers mainStore={mainStore}>
+			<AppContent />
+		</Providers>
 	);
 };
 

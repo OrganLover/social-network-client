@@ -1,3 +1,3 @@
 export type UserStoreChangableProperties = {
-	isAuth: boolean;
+	isAuth: boolean | null;
 };
