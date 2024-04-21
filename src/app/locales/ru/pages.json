@@ -1,7 +1,22 @@
 {
 	"auth": {
-		"login": {
-			"title": "Авторизация"
+		"login-block": {
+			"title": "Вход",
+			"submit-text": "Войти",
+			"to-register-block": "На страницу регистрации"
+		},
+		"register-block": {
+			"title": "Регистрация",
+			"submit-text": "Создать аккаунт",
+			"to-login-block": "На страницу авторизации"
+		},
+		"common": {
+			"input-label": {
+				"email": "Адрес почты",
+				"name": "Имя",
+				"password": "Пароль",
+				"password-confirm": "Подтверждение пароля"
+			}
 		}
 	}
 }

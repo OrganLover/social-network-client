@@ -1,7 +1,22 @@
 {
 	"auth": {
-		"login": {
-			"title": "Sign in"
+		"login-block": {
+			"title": "Sign in",
+			"submit-text": "Login",
+			"to-register-block": "Switch to registration page"
+		},
+		"register-block": {
+			"title": "Registration",
+			"submit-text": "Create account",
+			"to-login-block": "Switch to authorization page"
+		},
+		"common": {
+			"input-label": {
+				"email": "Email",
+				"name": "Name",
+				"password": "Password",
+				"password-confirm": "Password confirm"
+			}
 		}
 	}
 }

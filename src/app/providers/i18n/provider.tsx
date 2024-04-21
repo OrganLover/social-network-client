@@ -6,7 +6,7 @@ import { LOCAL_STORAGE } from '@shared/local-storage/local-storage.constant';
 
 import { LANGUAGE, SEGMENT } from './provider.constant';
 
-import type { I18nProviderProps } from './provider.interface';
+import type { I18nProviderProps, Segment } from './provider.interface';
 
 const I18nProvider = ({ children }: I18nProviderProps) => {
 	const [isI18nReady, setI18nReadyState] = useState(false);
@@ -19,15 +19,18 @@ const I18nProvider = ({ children }: I18nProviderProps) => {
 	}, []);
 
 	useEffect(() => {
-		const addResource = (lng: string, ns: string, resources: any) => {
-			i18nextInstance.addResourceBundle(lng, ns, resources, true, true);
+		const addResources = (lng: string, resources: [Segment, any][]) => {
+			for (const resource of resources) {
+				const [namespace, payload] = resource;
+				i18nextInstance.addResourceBundle(lng, namespace, payload, true, true);
+			}
 		};
 
 		const initI18n = async () => {
 			await i18nextInstance.init({
 				supportedLngs: [LANGUAGE.RU, LANGUAGE.EN],
 				fallbackLng: LANGUAGE.EN,
-				ns: [SEGMENT.PAGES],
+				ns: [SEGMENT.PAGES, SEGMENT.ERRORS],
 				detection: {
 					order: ['queryString', 'localStorage', 'navigator'],
 					lookupLocalStorage: LOCAL_STORAGE.LANGUAGE,
@@ -37,11 +40,21 @@ const I18nProvider = ({ children }: I18nProviderProps) => {
 				},
 			});
 
-			const { pages: ruLocale } = await import('../../locales/ru');
-			const { pages: enLocale } = await import('../../locales/en');
+			const { pages: ruPages, errors: ruErrors } = await import(
+				'../../locales/ru'
+			);
+			const { pages: enPages, errors: enErrors } = await import(
+				'../../locales/en'
+			);
 
-			addResource(LANGUAGE.RU, SEGMENT.PAGES, ruLocale);
-			addResource(LANGUAGE.EN, SEGMENT.PAGES, enLocale);
+			addResources(LANGUAGE.RU, [
+				[SEGMENT.PAGES, ruPages],
+				[SEGMENT.ERRORS, ruErrors],
+			]);
+			addResources(LANGUAGE.EN, [
+				[SEGMENT.PAGES, enPages],
+				[SEGMENT.ERRORS, enErrors],
+			]);
 
 			setI18nReadyState(true);
 		};
