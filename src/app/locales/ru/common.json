@@ -1,0 +1,8 @@
+{
+	"lang-toggle": {
+		"tooltip-content": "Переключить язык"
+	},
+	"theme-toggle": {
+		"tooltip-content": "Переключить тему"
+	}
+}

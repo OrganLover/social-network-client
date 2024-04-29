@@ -3,9 +3,9 @@
 		"login-block": {
 			"title": "Sign in",
 			"submit-text": "Login",
-			"to-register-block": "Switch to registration page"
+			"to-registration-block": "Switch to registration page"
 		},
-		"register-block": {
+		"registration-block": {
 			"title": "Registration",
 			"submit-text": "Create account",
 			"to-login-block": "Switch to authorization page"

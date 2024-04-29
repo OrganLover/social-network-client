@@ -3,9 +3,9 @@
 		"login-block": {
 			"title": "Вход",
 			"submit-text": "Войти",
-			"to-register-block": "На страницу регистрации"
+			"to-registration-block": "На страницу регистрации"
 		},
-		"register-block": {
+		"registration-block": {
 			"title": "Регистрация",
 			"submit-text": "Создать аккаунт",
 			"to-login-block": "На страницу авторизации"

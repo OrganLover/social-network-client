@@ -1,0 +1,8 @@
+{
+	"lang-toggle": {
+		"tooltip-content": "Switch language"
+	},
+	"theme-toggle": {
+		"tooltip-content": "Switch theme"
+	}
+}
