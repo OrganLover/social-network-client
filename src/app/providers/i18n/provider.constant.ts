@@ -6,4 +6,5 @@ export const LANGUAGE = {
 export const SEGMENT = {
 	PAGES: 'pages',
 	ERRORS: 'errors',
+	COMMON: 'common',
 } as const;

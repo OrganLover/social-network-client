@@ -1,5 +1,5 @@
-import Login from './auth/login/login';
-import Register from './auth/register/register';
+import LoginForm from './auth/login-form/login-form';
+import RegistrationForm from './auth/registration-form/registration-form';
 import ThemeToggle from './theme-toggle/theme-toggle';
 
-export { Login, Register, ThemeToggle };
+export { LoginForm, RegistrationForm, ThemeToggle };

@@ -40,20 +40,26 @@ const I18nProvider = ({ children }: I18nProviderProps) => {
 				},
 			});
 
-			const { pages: ruPages, errors: ruErrors } = await import(
-				'../../locales/ru'
-			);
-			const { pages: enPages, errors: enErrors } = await import(
-				'../../locales/en'
-			);
+			const {
+				pages: ruPages,
+				errors: ruErrors,
+				common: ruCommon,
+			} = await import('../../locales/ru');
+			const {
+				pages: enPages,
+				errors: enErrors,
+				common: enCommon,
+			} = await import('../../locales/en');
 
 			addResources(LANGUAGE.RU, [
 				[SEGMENT.PAGES, ruPages],
 				[SEGMENT.ERRORS, ruErrors],
+				[SEGMENT.COMMON, ruCommon],
 			]);
 			addResources(LANGUAGE.EN, [
 				[SEGMENT.PAGES, enPages],
 				[SEGMENT.ERRORS, enErrors],
+				[SEGMENT.COMMON, enCommon],
 			]);
 
 			setI18nReadyState(true);

@@ -4,4 +4,4 @@ export type I18nProviderProps = {
 	children: ReactNode;
 };
 
-export type Segment = 'pages' | 'errors';
+export type Segment = 'pages' | 'errors' | 'common';

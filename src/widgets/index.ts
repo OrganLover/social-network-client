@@ -1,4 +1,4 @@
 import LoginBlock from './auth/login-block/login-block';
-import RegisterBlock from './auth/register-block/register-block';
+import RegistrationBlock from './auth/registration-block/registration-block';
 
-export { LoginBlock, RegisterBlock };
+export { LoginBlock, RegistrationBlock };
