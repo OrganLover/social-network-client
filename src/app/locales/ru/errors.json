@@ -4,5 +4,12 @@
 		"invalid-name": "Имя пользователя должно быть не меньше 1 символа",
 		"invalid-password": "Пароль должен быть не меньше 8 символов",
 		"invalid-password-confirm": "Несоответствие паролей"
+	},
+	"server-error": {
+		"auth": {
+			"user-not-found": "Пользователь не найден",
+			"email-already-exists": "Почта уже зарегистрирована",
+			"invalid-credentials": "Некорректная почта и/или пароль"
+		}
 	}
 }

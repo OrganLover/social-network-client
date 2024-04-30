@@ -1,8 +1,15 @@
 {
-	"auth": {
-		"invalid-email": "Invalid email",
-		"invalid-name": "User name must contain at least 1 character",
-		"invalid-password": "Password must contain at least 8 characters",
-		"invalid-password-confirm": "Passwords does not match"
-	}
+  "auth": {
+    "invalid-email": "Invalid email",
+    "invalid-name": "User name must contain at least 1 character",
+    "invalid-password": "Password must contain at least 8 characters",
+    "invalid-password-confirm": "Passwords do not match"
+  },
+  "server-error": {
+    "auth": {
+      "user-not-found": "User not found",
+      "email-already-exists": "Email already registered",
+      "invalid-credentials": "Invalid email and/or password"
+    }
+  }
 }
