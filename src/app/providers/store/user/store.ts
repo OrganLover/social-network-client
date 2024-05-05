@@ -1,114 +1,121 @@
 import { flow, makeAutoObservable } from 'mobx';
 import { auth } from '@shared/api';
 import type {
-	GetAuthorizedResponsePayload,
-	LoginUserRequestPayload,
-	LoginUserResponsePayload,
-	LogoutUserResponsePayload,
-	RegisterUserRequestPayload,
-	RegisterUserResponsePayload,
-	UserProfile,
+  GetAuthorizedResponsePayload,
+  LoginUserRequestPayload,
+  LoginUserResponsePayload,
+  LogoutUserResponsePayload,
+  RegisterUserRequestPayload,
+  RegisterUserResponsePayload,
+  UserProfile,
 } from '@shared/api/types/user';
 
-import type { UserStoreChangableProperties as ChangableProperties } from './store.interface';
 import { LOCAL_STORAGE } from '@shared/local-storage/local-storage.constant';
 
+import type { UserStoreChangableProperties as ChangableProperties } from './store.interface';
+
 export default class UserStore {
-	id: number | null = null;
-	email: number | null = null;
-	profile: UserProfile | null = null;
-	isAuth: boolean | null = null;
+  id: number | null = null;
+  email: number | null = null;
+  profile: UserProfile | null = null;
+  isAuth: boolean | null = null;
 
-	constructor() {
-		makeAutoObservable(this);
-	}
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-	public setProperties(props: ChangableProperties) {
-		for (const key in props) {
-			//@ts-ignore
-			this[key] = props[key];
-		}
-	}
+  public setProperties(props: ChangableProperties) {
+    for (const key in props) {
+      //@ts-ignore
+      this[key] = props[key];
+    }
+  }
 
-	private resetUser() {
-		this.id = null;
-		this.email = null;
-		this.profile = null;
-		this.isAuth = false;
-	}
+  private resetUser() {
+    this.id = null;
+    this.email = null;
+    this.profile = null;
+    this.isAuth = false;
+  }
 
-	public register = flow(function* (
-		this: UserStore,
-		payload: RegisterUserRequestPayload,
-	) {
-		try {
-			const { token, user }: RegisterUserResponsePayload = yield auth.register(
-				payload,
-			);
+  public register = flow(function* (
+    this: UserStore,
+    payload: RegisterUserRequestPayload,
+  ) {
+    const response: RegisterUserResponsePayload = yield auth.register(payload);
 
-			window.localStorage.setItem(LOCAL_STORAGE.TOKEN, token);
+    if (response.error) {
+      console.log(response.error);
+      return response.error;
+    }
 
-			for (const key in user) {
-				//@ts-ignore
-				this[key] = user[key];
-			}
+    const { token, user } = response;
 
-			this.setProperties({ isAuth: true });
-		} catch (error) {
-			console.log(error);
-		}
-	});
+    if (token && user) {
+      window.localStorage.setItem(LOCAL_STORAGE.TOKEN, token);
 
-	public login = flow(function* (
-		this: UserStore,
-		payload: LoginUserRequestPayload,
-	) {
-		try {
-			const { token, user }: LoginUserResponsePayload = yield auth.login(
-				payload,
-			);
+      for (const key in user) {
+        //@ts-ignore
+        this[key] = user[key];
+      }
 
-			window.localStorage.setItem(LOCAL_STORAGE.TOKEN, token);
+      history.pushState(undefined, '', '/');
+      this.setProperties({ isAuth: true });
+    }
+  });
 
-			for (const key in user) {
-				//@ts-ignore
-				this[key] = user[key];
-			}
+  public login = flow(function* (
+    this: UserStore,
+    payload: LoginUserRequestPayload,
+  ) {
+    const response: LoginUserResponsePayload = yield auth.login(payload);
 
-			this.setProperties({ isAuth: true });
-		} catch (error) {
-			console.log(error);
-		}
-	});
+    if (response.error) {
+      return response.error;
+    }
 
-	public authorize = flow(function* (this: UserStore) {
-		try {
-			const me: GetAuthorizedResponsePayload = yield auth.getAuthorized();
+    const { token, user } = response;
 
-			for (const key in me) {
-				//@ts-ignore
-				this[key] = me[key];
-			}
+    if (token && user) {
+      window.localStorage.setItem(LOCAL_STORAGE.TOKEN, token);
 
-			this.setProperties({ isAuth: true });
-		} catch (error) {
-			this.setProperties({ isAuth: false });
-			console.log(error);
-		}
-	});
+      for (const key in user) {
+        //@ts-ignore
+        this[key] = user[key];
+      }
 
-	public logout = flow(function* (this: UserStore) {
-		try {
-			const { success }: LogoutUserResponsePayload = yield auth.logout();
+      history.pushState(undefined, '', '/');
+      this.setProperties({ isAuth: true });
+    }
+  });
 
-			if (!success) {
-				return;
-			}
+  public authorize = flow(function* (this: UserStore) {
+    const response: GetAuthorizedResponsePayload = yield auth.getAuthorized();
 
-			window.localStorage.removeItem(LOCAL_STORAGE.TOKEN);
-			this.resetUser();
-		} catch (error) {
-			console.log(error);
-		}
-	});
+    if (response.error) {
+      return this.setProperties({ isAuth: false });
+    }
+
+    const { user } = response;
+
+    if (user) {
+      for (const key in user) {
+        //@ts-ignore
+        this[key] = user[key];
+      }
+
+      this.setProperties({ isAuth: true });
+    }
+  });
+
+  public logout = flow(function* (this: UserStore) {
+    const { success }: LogoutUserResponsePayload = yield auth.logout();
+
+    if (!success) {
+      return;
+    }
+
+    window.localStorage.removeItem(LOCAL_STORAGE.TOKEN);
+    this.resetUser();
+  });
 }

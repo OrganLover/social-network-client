@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Stack } from '@mantine/core';
 import { useForm } from '@mantine/form';
@@ -9,72 +10,111 @@ import useMainStore from '@shared/hooks/use-main-store';
 import Form from '../form/form';
 import { REGISTRATION_BLOCK_TRANSLATION_PREFIX } from './registration-block.constant';
 
+import type { FormApi } from '../form/form.interface';
+
 const RegistrationForm = () => {
-	const { t: translate } = useTranslation();
-	const { user } = useMainStore();
+  const { t: translate, i18n } = useTranslation();
+  const { user } = useMainStore();
 
-	const t = (key: string, args?: Record<string, any>) =>
-		translate(`${REGISTRATION_BLOCK_TRANSLATION_PREFIX}.${key}`, args);
-	const label = (key: string, args?: Record<string, any>) =>
-		translate(`pages:auth.common.input-label.${key}`, args);
-	const error = (key: string, args?: Record<string, any>) =>
-		translate(`errors:auth.${key}`, args);
+  const formApiRef = useRef<FormApi>();
 
-	const form = useForm({
-		clearInputErrorOnChange: true,
-		mode: 'uncontrolled',
-		initialValues: {
-			email: '',
-			userName: '',
-			password: '',
-			passwordConfirm: '',
-		},
-		validate: {
-			email: v => (!validateEmail(v) ? error('invalid-email') : null),
-			userName: v => (!v.length ? error('invalid-name') : null),
-			password: v => (v.length < 8 ? error('invalid-password') : null),
-			passwordConfirm: (v, form) =>
-				v !== form.password ? error('invalid-password-confirm') : null,
-		},
-	});
+  const t = useCallback(
+    (key: string, args?: Record<string, any>) =>
+      translate(`${REGISTRATION_BLOCK_TRANSLATION_PREFIX}.${key}`, args),
+    [translate],
+  );
+  const tLabel = useCallback(
+    (key: string, args?: Record<string, any>) =>
+      translate(`pages:auth.common.input-label.${key}`, args),
+    [translate],
+  );
+  const tError = useCallback(
+    (key: string, args?: Record<string, any>) =>
+      translate(`errors:${key}`, args),
+    [translate],
+  );
 
-	const handleSubmit = () => {
-		const { hasErrors } = form.validate();
+  const ValidationError = useMemo(
+    () => ({
+      email: tError('auth.invalid-email'),
+      userName: tError('auth.invalid-name'),
+      password: tError('auth.invalid-password'),
+      passwordConfirm: tError('auth.invalid-password-confirm'),
+    }),
+    [tError],
+  );
 
-		if (!hasErrors) {
-			const { passwordConfirm, ...rest } = form.getValues();
-			user.register(rest);
-		}
-	};
+  const form = useForm({
+    clearInputErrorOnChange: true,
+    mode: 'uncontrolled',
+    initialValues: {
+      email: '',
+      userName: '',
+      password: '',
+      passwordConfirm: '',
+    },
+    validate: {
+      email: v => (!validateEmail(v) ? ValidationError.email : null),
+      userName: v => (!v.length ? ValidationError.userName : null),
+      password: v => (v.length < 8 ? ValidationError.password : null),
+      passwordConfirm: (v, form) =>
+        v !== form.password ? ValidationError.passwordConfirm : null,
+    },
+  });
 
-	return (
-		<>
-			<Form form={form}>
-				<Stack align='center' maw={300} w={'100%'}>
-					<Input
-						description={label('email')}
-						{...form.getInputProps('email')}
-					/>
-					<Input
-						description={label('name')}
-						{...form.getInputProps('userName')}
-					/>
-					<Input
-						description={label('password')}
-						{...form.getInputProps('password')}
-					/>
-					<Input
-						description={label('password-confirm')}
-						{...form.getInputProps('passwordConfirm')}
-					/>
-				</Stack>
-			</Form>
+  const handleSubmit = async () => {
+    const { hasErrors } = form.validate();
 
-			<Button size='md' onClick={handleSubmit}>
-				{t('submit-text')}
-			</Button>
-		</>
-	);
+    if (!hasErrors) {
+      const { passwordConfirm, ...rest } = form.getValues();
+      const error = await user.register(rest);
+
+      if (error && formApiRef.current) {
+        formApiRef.current.showErrorMessage({
+          fieldName: 'email',
+          message: tError(`server-error.${error}`),
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    const { errors } = form;
+    for (const key in errors) {
+      //@ts-ignore
+      form.setFieldError(key, ValidationError[key]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [i18n.language]);
+
+  return (
+    <>
+      <Form form={form} apiRef={formApiRef}>
+        <Stack align='center' maw={300} w={'100%'}>
+          <Input
+            description={tLabel('email')}
+            {...form.getInputProps('email')}
+          />
+          <Input
+            description={tLabel('name')}
+            {...form.getInputProps('userName')}
+          />
+          <Input
+            description={tLabel('password')}
+            {...form.getInputProps('password')}
+          />
+          <Input
+            description={tLabel('password-confirm')}
+            {...form.getInputProps('passwordConfirm')}
+          />
+        </Stack>
+      </Form>
+
+      <Button h={50} size='md' onClick={handleSubmit}>
+        {t('submit-text')}
+      </Button>
+    </>
+  );
 };
 
 export default RegistrationForm;

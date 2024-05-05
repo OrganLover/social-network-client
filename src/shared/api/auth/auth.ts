@@ -11,7 +11,7 @@ import type {
 
 const register = async (
 	payload: RegisterUserRequestPayload,
-): Promise<RegisterUserResponsePayload> => {
+): Promise<RegisterUserResponsePayload | { error: string }> => {
 	return ky
 		.post('auth/register', {
 			body: JSON.stringify(payload),

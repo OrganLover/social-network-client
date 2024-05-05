@@ -6,6 +6,5 @@
 	"endOfLine": "lf",
 	"jsxBracketSameLine": false,
 	"jsxSingleQuote": true,
-	"useTabs": true,
 	"arrowParens": "avoid"
 }

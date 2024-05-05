@@ -3,13 +3,13 @@ import { createContext } from 'react';
 import UserStore from './user/store';
 
 export type MainStore = {
-	user: UserStore;
+  user: UserStore;
 };
 
 export const createMainStoreContextValue = (): MainStore => {
-	return {
-		user: new UserStore(),
-	};
+  return {
+    user: new UserStore(),
+  };
 };
 
 const MainStoreContext = createContext(createMainStoreContextValue());
