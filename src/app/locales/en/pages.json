@@ -1,22 +1,50 @@
 {
-	"auth": {
-		"login-block": {
-			"title": "Sign in",
-			"submit-text": "Login",
-			"to-registration-block": "Switch to registration page"
-		},
-		"registration-block": {
-			"title": "Registration",
-			"submit-text": "Create account",
-			"to-login-block": "Switch to authorization page"
-		},
-		"common": {
-			"input-label": {
-				"email": "Email",
-				"name": "Name",
-				"password": "Password",
-				"password-confirm": "Password confirm"
-			}
-		}
-	}
+  "auth": {
+    "login-block": {
+      "title": "Sign in",
+      "submit-text": "Login",
+      "to-registration-block": "Switch to registration page"
+    },
+    "registration-block": {
+      "title": "Registration",
+      "submit-text": "Create account",
+      "to-login-block": "Switch to authorization page"
+    },
+    "common": {
+      "input-label": {
+        "email": "Email",
+        "name": "Name",
+        "password": "Password",
+        "password-confirm": "Password confirm"
+      }
+    }
+  },
+  "main": {
+    "header": {
+      "logout": "Logout"
+    },
+    "navbar": {
+      "me": "Me",
+      "messages": "Messages",
+      "users": "Users",
+      "settings": "Settings"
+    },
+    "user-page": {
+      "profile-editor": {
+        "tooltip": "Edit info",
+        "user-name": "Name",
+        "about-me": "Shortly about me",
+        "submit-text": "Save"
+      },
+      "posts": {
+        "confirm": "Confirm",
+        "post-creator": {
+          "tooltip": "Add post",
+          "post-title": "Title",
+          "post-content": "Content",
+          "submit-text": "Create post"
+        }
+      }
+    }
+  }
 }

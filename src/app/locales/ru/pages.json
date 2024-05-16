@@ -1,22 +1,50 @@
 {
-	"auth": {
-		"login-block": {
-			"title": "Вход",
-			"submit-text": "Войти",
-			"to-registration-block": "На страницу регистрации"
-		},
-		"registration-block": {
-			"title": "Регистрация",
-			"submit-text": "Создать аккаунт",
-			"to-login-block": "На страницу авторизации"
-		},
-		"common": {
-			"input-label": {
-				"email": "Адрес почты",
-				"name": "Имя",
-				"password": "Пароль",
-				"password-confirm": "Подтверждение пароля"
-			}
-		}
-	}
+  "auth": {
+    "login-block": {
+      "title": "Вход",
+      "submit-text": "Войти",
+      "to-registration-block": "На страницу регистрации"
+    },
+    "registration-block": {
+      "title": "Регистрация",
+      "submit-text": "Создать аккаунт",
+      "to-login-block": "На страницу авторизации"
+    },
+    "common": {
+      "input-label": {
+        "email": "Адрес почты",
+        "name": "Имя",
+        "password": "Пароль",
+        "password-confirm": "Подтверждение пароля"
+      }
+    }
+  },
+  "main": {
+    "header": {
+      "logout": "Выйти"
+    },
+    "navbar": {
+      "me": "Я",
+      "messages": "Сообщения",
+      "users": "Пользователи",
+      "settings": "Настройки"
+    },
+    "user-page": {
+      "profile-editor": {
+        "tooltip": "Редактировать данные",
+        "user-name": "Имя",
+        "about-me": "Коротко обо мне",
+        "submit-text": "Сохранить"
+      },
+      "posts": {
+        "confirm": "Подтвердить",
+        "post-creator": {
+          "tooltip": "Добавить пост",
+          "post-title": "Заголовок",
+          "post-content": "Основная часть",
+          "submit-text": "Создать пост"
+        }
+      }
+    }
+  }
 }
