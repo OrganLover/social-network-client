@@ -1,7 +1,9 @@
+import { SetRequired } from 'type-fest';
+
 export type User = {
   id: number;
   email: string;
-  profile: UserProfile | null;
+  profile: UserProfile;
 };
 
 export type UserProfile = {
@@ -40,3 +42,19 @@ export type GetAuthorizedResponsePayload = {
 export type LogoutUserResponsePayload = {
   success: boolean;
 };
+
+export type UpdateUserRequestPayload = SetRequired<
+  Partial<Omit<UserProfile, 'avatarPath'>>,
+  'userId'
+>;
+
+export type SaveAvatarRequestPayload = {
+  userId: number;
+  file: File;
+};
+
+export type SaveAvatarResponsePayload = {
+  fileName: string;
+};
+
+export type GetUserResponsePayload = User | undefined;

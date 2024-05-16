@@ -14,13 +14,14 @@ const MainLayoutContent = () => {
         breakpoint: 'sm',
         collapsed: { mobile: !opened },
       }}
-      padding='md'
+      h={'100%'}
+      w={'100%'}
     >
       <Header isNavbarOpened={opened} toggleNavbar={toggle} />
 
       <Navbar />
 
-      <AppShell.Main>
+      <AppShell.Main h={'100%'} w={'100%'}>
         <Outlet />
       </AppShell.Main>
     </AppShell>

@@ -1,19 +1,39 @@
 import { Link } from 'react-router-dom';
-import { AppShellNavbar, Stack } from '@mantine/core';
+import { AppShellNavbar, Flex, Stack, Text } from '@mantine/core';
 import { IconCard } from '@shared/ui';
 
-import { PATHS } from './navbar.constant';
+import { NAVBAR_TRANSLATION_PREFIX, PATHS } from './navbar.constant';
+import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
+  const { t } = useTranslation();
+
   return (
-    <AppShellNavbar>
-      <Stack>
+    <AppShellNavbar p={30}>
+      <Stack justify='center' align='left' w={'100%'}>
         {PATHS.map(([path, icon]) => {
+          const translationKey = path === 'users/me' ? 'me' : path;
+
           return (
-            <div key={path}>
-              <IconCard Icon={icon} />
-              <Link to={`/${path}`}>{path}</Link>
-            </div>
+            <Link
+              key={path}
+              to={`/${path}`}
+              style={{
+                textDecoration: 'none',
+                color: 'var(--mantine-color-text)',
+              }}
+            >
+              <Flex key={path} align={'end'}>
+                <IconCard
+                  Icon={icon}
+                  shadow='lg'
+                  containerStyles={{ marginRight: 10 }}
+                />
+                <Text size='20px' w={'100%'}>
+                  {t(`${NAVBAR_TRANSLATION_PREFIX}.${translationKey}`)}
+                </Text>
+              </Flex>
+            </Link>
           );
         })}
       </Stack>

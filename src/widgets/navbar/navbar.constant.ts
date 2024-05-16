@@ -1,9 +1,11 @@
 import { IconType } from 'react-icons';
-import { PiGear, PiMessengerLogo, PiUser, PiUsers } from 'react-icons/pi';
+import { PiMessengerLogo, PiUser, PiUsers } from 'react-icons/pi';
+
+export const NAVBAR_TRANSLATION_PREFIX = 'pages:main.navbar';
 
 export const PATHS = [
-  ['profile', PiUser],
-  ['dialogs', PiMessengerLogo],
+  ['users/me', PiUser],
+  ['messages', PiMessengerLogo],
   ['users', PiUsers],
-  ['settings', PiGear],
+  // ['settings', PiGear],
 ] as [string, IconType][];

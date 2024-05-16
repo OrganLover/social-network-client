@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { Button, Stack } from '@mantine/core';
 
 import { useForm } from '@mantine/form';
+import { useMainStore } from '@shared/providers';
 import { validateEmail } from '@shared/utils/validation';
 import { Input } from '@shared/ui';
-import useMainStore from '@shared/hooks/use-main-store';
 
 import Form from '../form/form';
 import { LOGIN_FORM_TRANSLATION_PREFIX } from './login-form.constant';
@@ -14,7 +14,7 @@ import type { FormApi } from '../form/form.interface';
 
 const LoginForm = () => {
   const { t: translate, i18n } = useTranslation();
-  const { user } = useMainStore();
+  const { owner: user } = useMainStore();
 
   const formApiRef = useRef<FormApi>();
 

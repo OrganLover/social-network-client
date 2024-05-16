@@ -1,14 +1,14 @@
 import { createContext } from 'react';
 
-import UserStore from './user/store';
+import OwnerStore from '../store/store';
 
 export type MainStore = {
-  user: UserStore;
+  owner: OwnerStore;
 };
 
 export const createMainStoreContextValue = (): MainStore => {
   return {
-    user: new UserStore(),
+    owner: new OwnerStore(),
   };
 };
 

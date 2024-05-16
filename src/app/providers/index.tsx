@@ -1,24 +1,24 @@
 import type { ReactNode } from 'react';
 
-import StoreProvider from './store/provider';
+import MainStoreProvider from '../../shared/providers/main/provider';
 import MantineProvider from './mantine/provider';
 import I18nProvider from './i18n/provider';
 
-import type { MainStore } from './store/context';
+import type { MainStore } from '../../shared/providers/main/context/context';
 
 type Props = {
-	children: ReactNode;
-	mainStore: MainStore;
+  children: ReactNode;
+  mainStore: MainStore;
 };
 
 const Providers = ({ children, mainStore }: Props) => {
-	return (
-		<StoreProvider value={mainStore}>
-			<I18nProvider>
-				<MantineProvider>{children}</MantineProvider>
-			</I18nProvider>
-		</StoreProvider>
-	);
+  return (
+    <MainStoreProvider value={mainStore}>
+      <I18nProvider>
+        <MantineProvider>{children}</MantineProvider>
+      </I18nProvider>
+    </MainStoreProvider>
+  );
 };
 
 export default Providers;

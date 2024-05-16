@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import useMainStore from '@shared/hooks/use-main-store';
+import { useMainStore } from '@shared/providers';
 
 import Layout from 'src/app/layouts/layout';
 import { LAYOUT } from 'src/app/layouts/layout.constant';
@@ -8,34 +8,34 @@ import { LAYOUT } from 'src/app/layouts/layout.constant';
 import type { LayoutType } from 'src/app/layouts/layout.interface';
 
 const AppContent = observer(() => {
-	const { user } = useMainStore();
+  const { owner } = useMainStore();
 
-	const [layout, setLayout] = useState<LayoutType>(null);
+  const [layout, setLayout] = useState<LayoutType>(null);
 
-	useEffect(() => {
-		const userify = async () => {
-			await user.authorize();
-		};
+  useEffect(() => {
+    const userify = async () => {
+      await owner.authorize();
+    };
 
-		userify();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+    userify();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-	useEffect(() => {
-		if (user.isAuth === null) {
-			return;
-		}
+  useEffect(() => {
+    if (owner.isAuth === null) {
+      return;
+    }
 
-		if (user.isAuth) {
-			setLayout(LAYOUT.MAIN);
-			return;
-		}
+    if (owner.isAuth) {
+      setLayout(LAYOUT.MAIN);
+      return;
+    }
 
-		setLayout(LAYOUT.AUTH);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [user.isAuth]);
+    setLayout(LAYOUT.AUTH);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [owner.isAuth]);
 
-	return <Layout layoutType={layout} />;
+  return <Layout layoutType={layout} />;
 });
 
 export default AppContent;

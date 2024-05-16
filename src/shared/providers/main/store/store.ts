@@ -12,19 +12,20 @@ import type {
 
 import { LOCAL_STORAGE } from '@shared/local-storage/local-storage.constant';
 
-import type { UserStoreChangableProperties as ChangableProperties } from './store.interface';
+import type { OwnerStoreChangableProperties as ChangableProperties } from './store.interface';
 
-export default class UserStore {
+export default class OwnerStore {
   id: number | null = null;
   email: number | null = null;
   profile: UserProfile | null = null;
   isAuth: boolean | null = null;
+  isOwner: boolean | null = true;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  public setProperties(props: ChangableProperties) {
+  public setProperties(props: Partial<ChangableProperties>) {
     for (const key in props) {
       //@ts-ignore
       this[key] = props[key];
@@ -39,7 +40,7 @@ export default class UserStore {
   }
 
   public register = flow(function* (
-    this: UserStore,
+    this: OwnerStore,
     payload: RegisterUserRequestPayload,
   ) {
     const response: RegisterUserResponsePayload = yield auth.register(payload);
@@ -65,7 +66,7 @@ export default class UserStore {
   });
 
   public login = flow(function* (
-    this: UserStore,
+    this: OwnerStore,
     payload: LoginUserRequestPayload,
   ) {
     const response: LoginUserResponsePayload = yield auth.login(payload);
@@ -89,7 +90,7 @@ export default class UserStore {
     }
   });
 
-  public authorize = flow(function* (this: UserStore) {
+  public authorize = flow(function* (this: OwnerStore) {
     const response: GetAuthorizedResponsePayload = yield auth.getAuthorized();
 
     if (response.error) {
@@ -108,7 +109,7 @@ export default class UserStore {
     }
   });
 
-  public logout = flow(function* (this: UserStore) {
+  public logout = flow(function* (this: OwnerStore) {
     const { success }: LogoutUserResponsePayload = yield auth.logout();
 
     if (!success) {
