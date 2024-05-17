@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Flex, SimpleGrid } from '@mantine/core';
 import { useUsersStore } from '@shared/providers';
-import { UserCard } from '@widgets';
+import { UserCard } from '@entities';
 
 const Users = () => {
   const store = useUsersStore();
