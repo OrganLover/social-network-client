@@ -1,31 +1,20 @@
 import { Flex, Paper, Stack, Text } from '@mantine/core';
-import { useMainStore } from '@shared/providers';
+import { useDialogsStore, useMainStore } from '@shared/providers';
+import { observer } from 'mobx-react-lite';
 
 const MessagesBlock = () => {
   const { owner } = useMainStore();
+  const store = useDialogsStore();
+  const { selectedDialog } = store;
 
-  const messages = [
-    {
-      id: 1,
-      authorId: 1,
-      value: 'hello friend',
-    },
-    {
-      id: 1,
-      authorId: 2,
-      value: 'bye friend',
-    },
-    {
-      id: 1,
-      authorId: 1,
-      value: 'you are gonna die',
-    },
-  ];
+  if (!selectedDialog) {
+    return null;
+  }
 
   return (
     <Stack>
-      {messages.map(message => {
-        const isAuthor = message.authorId === owner.id;
+      {selectedDialog.messages.map(message => {
+        const isAuthor = message.writer.id === owner.id;
 
         return (
           <Flex justify={isAuthor ? 'right' : 'left'}>
@@ -46,4 +35,4 @@ const MessagesBlock = () => {
   );
 };
 
-export default MessagesBlock;
+export default observer(MessagesBlock);

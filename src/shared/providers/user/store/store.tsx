@@ -17,6 +17,10 @@ import {
   ModalMode,
   UserStoreChangableProperties as ChangableProperties,
 } from './store.interface';
+import {
+  CreateDialogRequestPayload,
+  GetDialogResponsePaylaod,
+} from '@shared/api/types/dialog';
 
 export default class UserStore {
   public id;
@@ -141,6 +145,18 @@ export default class UserStore {
       const newPosts = [...this.posts.filter(({ id }) => id !== post.id), post];
 
       this.posts = newPosts;
+    }
+  });
+
+  public createDialog = flow(function* (
+    this: UserStore,
+    payload: CreateDialogRequestPayload,
+  ) {
+    const createdDialog: GetDialogResponsePaylaod =
+      yield user.dialog.createDialog(payload);
+
+    if (createdDialog) {
+      return createdDialog.id;
     }
   });
 }

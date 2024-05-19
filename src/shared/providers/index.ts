@@ -7,8 +7,8 @@ import useUserStore from './user/hooks/use-user-store';
 import UsersStoreProvider from './users/provider';
 import useUsersStore from './users/hooks/use-users-store';
 
-import MessagesStoreProvider from './messages/provider';
-import useMessagesStore from './messages/hooks/use-users-store';
+import DialogsStoreProvider from './dialogs/provider';
+import useDialogsStore from './dialogs/hooks/use-users-store';
 
 export {
   MainStoreProvider,
@@ -17,6 +17,6 @@ export {
   useUserStore,
   UsersStoreProvider,
   useUsersStore,
-  MessagesStoreProvider,
-  useMessagesStore,
+  DialogsStoreProvider,
+  useDialogsStore,
 };

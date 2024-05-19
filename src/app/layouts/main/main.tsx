@@ -3,7 +3,7 @@ import {
   RouterProvider,
   createBrowserRouter,
 } from 'react-router-dom';
-import { Messages, UserPage, UsersPage } from '@pages';
+import { DialogsPage, UserPage, UsersPage } from '@pages';
 
 import MainLayoutContent from './components/content';
 
@@ -13,8 +13,8 @@ const MainLayout = () => {
       element: <MainLayoutContent />,
       children: [
         {
-          path: '/messages',
-          element: <Messages />,
+          path: '/dialogs',
+          element: <DialogsPage />,
         },
         {
           path: '/users',
@@ -28,10 +28,6 @@ const MainLayout = () => {
           path: 'users/:userId',
           element: <UserPage />,
         },
-        // {
-        //   path: '/settings',
-        //   element: <UserPage />,
-        // },
         {
           path: '*',
           element: <Navigate to={'/'} />,

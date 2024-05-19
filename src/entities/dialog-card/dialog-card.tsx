@@ -1,13 +1,36 @@
+import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
 import { Avatar, Flex, Paper, Stack, Text } from '@mantine/core';
 
-const DialogCard = () => {
+import type { Dialogs } from '@shared/api/types/dialog';
+import { useMainStore } from '@shared/providers';
+import getAvatarUrl from '@shared/utils/get-avatar-url';
+
+const DialogCard = ({ id, initiator, respondent }: Dialogs[0]) => {
+  const { owner } = useMainStore();
+  const navigate = useNavigate();
+
+  const companion = initiator.id === owner.id ? respondent : initiator;
+
+  const avatarUrl = useMemo(() => {
+    if (companion.profile.avatarPath) {
+      return getAvatarUrl(companion.profile.avatarPath);
+    }
+
+    return undefined;
+  }, [companion.profile.avatarPath]);
+
   return (
-    <Paper shadow='xl'>
+    <Paper
+      shadow='xl'
+      onClick={() => navigate('/dialogs', { state: { dialogId: id } })}
+    >
       <Flex justify={'left'} align={'center'} p={5}>
-        <Avatar color='blue' size={'xl'} />
+        <Avatar color='blue' size={'xl'} src={avatarUrl} />
         <Stack justify='center' m={10}>
           <Text mt={5} size='lg'>
-            Cool Dock
+            {companion.profile.userName}
           </Text>
         </Stack>
       </Flex>
@@ -15,4 +38,4 @@ const DialogCard = () => {
   );
 };
 
-export default DialogCard;
+export default observer(DialogCard);

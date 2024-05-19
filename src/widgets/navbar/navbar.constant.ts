@@ -5,7 +5,6 @@ export const NAVBAR_TRANSLATION_PREFIX = 'pages:main.navbar';
 
 export const PATHS = [
   ['users/me', PiUser],
-  ['messages', PiMessengerLogo],
+  ['dialogs', PiMessengerLogo],
   ['users', PiUsers],
-  // ['settings', PiGear],
 ] as [string, IconType][];

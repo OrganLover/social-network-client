@@ -60,7 +60,7 @@ export default class OwnerStore {
         this[key] = user[key];
       }
 
-      history.pushState(undefined, '', '/');
+      history.pushState(undefined, '', '/users/me');
       this.setProperties({ isAuth: true });
     }
   });
@@ -85,7 +85,7 @@ export default class OwnerStore {
         this[key] = user[key];
       }
 
-      history.pushState(undefined, '', '/');
+      history.pushState(undefined, '', '/users/me');
       this.setProperties({ isAuth: true });
     }
   });

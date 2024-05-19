@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import {
   Avatar,
+  Button,
   Divider,
-  Flex,
   Grid,
   Indicator,
   Loader,
@@ -11,13 +12,19 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { useUserStore } from '@shared/providers';
+import { useMainStore, useUserStore } from '@shared/providers';
+import CreateDialogModal from './components/create-dialog-modal/create-dialog-modal';
+import { USER_PAGE_TRANSLATION_PREFIX } from './profile.constant';
 
 const UserProfile = () => {
+  const [isModalOpened, setModalOpenedState] = useState(false);
+
   const user = useUserStore();
+  const { owner } = useMainStore();
   const { name, aboutMe, avatarUrl, isLoading } = user;
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     user.setupProfile();
@@ -39,7 +46,7 @@ const UserProfile = () => {
   return (
     <Grid grow>
       <Grid.Col span={1}>
-        <Flex justify={'left'} align={'center'}>
+        <Stack justify={'left'} align={'center'}>
           <Indicator size={15}>
             <Avatar
               w={300}
@@ -63,7 +70,17 @@ const UserProfile = () => {
               }
             />
           </Indicator>
-        </Flex>
+          {!owner.isOwner ? (
+            <Button w={'100%'} onClick={() => setModalOpenedState(true)}>
+              {t(`${USER_PAGE_TRANSLATION_PREFIX}.start-dialog`)}
+            </Button>
+          ) : null}
+
+          <CreateDialogModal
+            isOpened={isModalOpened}
+            onClose={() => setModalOpenedState(false)}
+          />
+        </Stack>
       </Grid.Col>
       <Grid.Col span={9}>
         <Stack>
