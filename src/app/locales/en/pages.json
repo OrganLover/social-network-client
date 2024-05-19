@@ -25,11 +25,16 @@
     },
     "navbar": {
       "me": "Me",
-      "messages": "Messages",
+      "dialogs": "Messages",
       "users": "Users",
       "settings": "Settings"
     },
     "user-page": {
+      "start-dialog": "Start dialog",
+      "create-dialog-modal": {
+        "message": "Message",
+        "send-message": "Send message"
+      },
       "profile-editor": {
         "tooltip": "Edit info",
         "user-name": "Name",

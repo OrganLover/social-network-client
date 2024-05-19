@@ -24,12 +24,17 @@
       "logout": "Выйти"
     },
     "navbar": {
-      "me": "Я",
-      "messages": "Сообщения",
+      "me": "Моя страница",
+      "dialogs": "Сообщения",
       "users": "Пользователи",
       "settings": "Настройки"
     },
     "user-page": {
+      "start-dialog": "Начать диалог",
+      "create-dialog-modal": {
+        "message": "Сообщение",
+        "send-message": "Отправить сообщение"
+      },
       "profile-editor": {
         "tooltip": "Редактировать данные",
         "user-name": "Имя",
