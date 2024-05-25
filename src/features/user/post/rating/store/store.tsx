@@ -1,5 +1,4 @@
 import { makeAutoObservable } from 'mobx';
-import { user } from '@shared/api';
 
 import type { PostRatingChangableProperties as ChangableProperties } from './store.interface';
 
@@ -13,10 +12,6 @@ export default class PostRatingStore {
   constructor(id: number) {
     this.id = id;
     makeAutoObservable(this);
-  }
-
-  public setup() {
-    user.post.get();
   }
 
   public onLike() {
