@@ -5,6 +5,8 @@ import { IconCard } from '@shared/ui';
 import { observer } from 'mobx-react-lite';
 import { PiPaperPlane } from 'react-icons/pi';
 
+import { KeyboardEventHandler } from 'react';
+
 const MessageForm = () => {
   const { owner } = useMainStore();
   const store = useDialogsStore();
@@ -30,10 +32,21 @@ const MessageForm = () => {
     }
   };
 
+  const onEnterPress: KeyboardEventHandler<HTMLTextAreaElement> = e => {
+    if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey) {
+      onSendMessage();
+    }
+  };
+
   return (
     <Form form={form} style={{ width: '100%' }}>
       <Group>
-        <Textarea flex={1} size='xl' {...form.getInputProps('message')} />
+        <Textarea
+          flex={1}
+          size='xl'
+          {...form.getInputProps('message')}
+          onKeyDown={onEnterPress}
+        />
 
         <IconCard Icon={PiPaperPlane} shadow='xl' onClick={onSendMessage} />
       </Group>

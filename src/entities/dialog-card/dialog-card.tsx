@@ -25,6 +25,8 @@ const DialogCard = ({ id, initiator, respondent }: Dialogs[0]) => {
     <Paper
       shadow='xl'
       onClick={() => navigate('/dialogs', { state: { dialogId: id } })}
+      m={5}
+      style={{ cursor: 'pointer' }}
     >
       <Flex justify={'left'} align={'center'} p={5}>
         <Avatar color='blue' size={'xl'} src={avatarUrl} />

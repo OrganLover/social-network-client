@@ -36,7 +36,7 @@ export default class DialogsStore {
       .slice()
       .sort(
         (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
       );
   }
 
@@ -90,11 +90,13 @@ export default class DialogsStore {
     this.socket.emit(WS_DIALOG_MESSAGE.MESSAGE.DELETE, { id });
   }
 
-  public setupListeners() {
+  public setupListeners(config?: { newMessageHandler: VoidFunction }) {
     this.socket.on(
       WS_DIALOG_EVENT.MESSAGE.NEW,
       (payload: NewMessageEventPayload) => {
         this.selectedDialog?.messages.push(payload);
+        console.log(payload);
+        config?.newMessageHandler();
       },
     );
 

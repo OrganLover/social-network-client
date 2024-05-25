@@ -1,36 +1,94 @@
-import { Flex, Paper, Stack, Text } from '@mantine/core';
-import { useDialogsStore, useMainStore } from '@shared/providers';
+import { useEffect, useRef, useState } from 'react';
 import { observer } from 'mobx-react-lite';
+import { Flex, Paper, ScrollArea, Stack, Text } from '@mantine/core';
+import { useDialogsStore, useMainStore } from '@shared/providers';
 
 const MessagesBlock = () => {
+  const [messageBoardHeight, setMessageBoardHeight] = useState(0);
+  const [messageBoardWidth, setMessageBoardWidth] = useState(0);
+
   const { owner } = useMainStore();
   const store = useDialogsStore();
-  const { selectedDialog } = store;
+  const { selectedDialog, sortedMessages } = store;
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) {
+      return;
+    }
+
+    const observer = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        const { blockSize, inlineSize } = entry.contentBoxSize[0];
+
+        setMessageBoardHeight(blockSize);
+        setMessageBoardWidth(inlineSize);
+      }
+    });
+
+    observer.observe(containerRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    const msgs = store.sortedMessages;
+
+    if (!msgs) {
+      return;
+    }
+
+    if (msgs[msgs?.length - 1].writer.id === owner.id) {
+      if (scrollRef.current) {
+        scrollRef.current.scrollTo({
+          top: scrollRef.current.scrollHeight,
+          behavior: 'smooth',
+        });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [store.sortedMessages]);
 
   if (!selectedDialog) {
     return null;
   }
 
   return (
-    <Stack>
-      {selectedDialog.messages.map(message => {
-        const isAuthor = message.writer.id === owner.id;
+    <Stack ref={containerRef} h={'100%'}>
+      <ScrollArea
+        h={messageBoardHeight}
+        scrollbars={'y'}
+        viewportRef={scrollRef}
+      >
+        {sortedMessages?.map(message => {
+          const isAuthor = message.writer.id === owner.id;
 
-        return (
-          <Flex justify={isAuthor ? 'right' : 'left'}>
-            <Paper
-              p={10}
-              pl={isAuthor ? 10 : 100}
-              pr={isAuthor ? 100 : 10}
-              shadow='xl'
-              radius={'md'}
-              c={'blue'}
-            >
-              <Text>{message.value}</Text>
-            </Paper>
-          </Flex>
-        );
-      })}
+          return (
+            <Flex justify={isAuthor ? 'right' : 'left'}>
+              <Paper
+                shadow='xl'
+                radius={'md'}
+                c={'blue'}
+                maw={messageBoardWidth / 2.1}
+                p={10}
+                m={10}
+              >
+                <Text
+                  styles={{
+                    root: { display: 'block', wordWrap: 'break-word' },
+                  }}
+                >
+                  {message.value}
+                </Text>
+              </Paper>
+            </Flex>
+          );
+        })}
+      </ScrollArea>
     </Stack>
   );
 };

@@ -8,7 +8,7 @@ const DialogsPage = () => {
 
   return (
     <DialogsStoreProvider userId={owner.id!}>
-      <Flex p={20}>
+      <Flex p={20} h={'100%'}>
         <Dialogs />
       </Flex>
     </DialogsStoreProvider>
