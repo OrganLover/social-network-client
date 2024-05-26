@@ -50,6 +50,11 @@
           "submit-text": "Create post"
         }
       }
+    },
+    "dialogs-page": {
+      "dialogs": "Dialogs",
+      "select-dialog": "Select dialog",
+      "no-dialogs": "You do not have any dialogs"
     }
   }
 }

@@ -50,6 +50,11 @@
           "submit-text": "Создать пост"
         }
       }
+    },
+    "dialogs-page": {
+      "dialogs": "Диалоги",
+      "select-dialog": "Выберите диалог",
+      "no-dialogs": "У вас нет диалогов"
     }
   }
 }
