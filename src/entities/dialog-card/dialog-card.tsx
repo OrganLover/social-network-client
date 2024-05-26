@@ -21,6 +21,15 @@ const DialogCard = ({ id, initiator, respondent }: Dialogs[0]) => {
     return undefined;
   }, [companion.profile.avatarPath]);
 
+  const avatarSymbols = useMemo(() => {
+    return companion.profile.userName
+      ?.split(' ')
+      .map(part => part[0])
+      .join('')
+      .substring(0, 3);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [companion.profile.userName]);
+
   return (
     <Paper
       shadow='xl'
@@ -29,7 +38,9 @@ const DialogCard = ({ id, initiator, respondent }: Dialogs[0]) => {
       style={{ cursor: 'pointer' }}
     >
       <Flex justify={'left'} align={'center'} p={5}>
-        <Avatar color='blue' size={'xl'} src={avatarUrl} />
+        <Avatar color='blue' size={'xl'} src={avatarUrl}>
+          {avatarSymbols}
+        </Avatar>
         <Stack justify='center' m={10}>
           <Text mt={5} size='lg'>
             {companion.profile.userName}

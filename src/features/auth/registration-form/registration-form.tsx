@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Stack } from '@mantine/core';
+import { Button, PasswordInput, Stack } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 import { validateEmail } from '@shared/utils/validation';
@@ -99,11 +99,15 @@ const RegistrationForm = () => {
             description={tLabel('name')}
             {...form.getInputProps('userName')}
           />
-          <Input
+          <PasswordInput
+            w={'100%'}
+            size={'md'}
             description={tLabel('password')}
             {...form.getInputProps('password')}
           />
-          <Input
+          <PasswordInput
+            w={'100%'}
+            size={'md'}
             description={tLabel('password-confirm')}
             {...form.getInputProps('passwordConfirm')}
           />

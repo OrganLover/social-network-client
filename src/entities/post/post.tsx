@@ -43,7 +43,8 @@ const Post = ({ id, features }: PostProps) => {
     return currentPost.author.profile.userName
       ?.split(' ')
       .map(part => part[0])
-      .join('');
+      .join('')
+      .substring(0, 3);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPost?.author.profile.userName]);
 

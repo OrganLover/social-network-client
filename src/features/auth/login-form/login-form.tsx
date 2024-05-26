@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Stack } from '@mantine/core';
+import { Button, PasswordInput, Stack } from '@mantine/core';
 
 import { useForm } from '@mantine/form';
 import { useMainStore } from '@shared/providers';
@@ -46,8 +46,8 @@ const LoginForm = () => {
     clearInputErrorOnChange: true,
     mode: 'uncontrolled',
     initialValues: {
-      email: 'super@puper.com',
-      password: 'superpuper',
+      email: '',
+      password: '',
     },
     validate: {
       email: v => (!validateEmail(v) ? ValidationError.email : null),
@@ -84,7 +84,9 @@ const LoginForm = () => {
             description={tLabel('email')}
             {...form.getInputProps('email')}
           />
-          <Input
+          <PasswordInput
+            w={'100%'}
+            size={'md'}
             description={tLabel('password')}
             {...form.getInputProps('password')}
           />

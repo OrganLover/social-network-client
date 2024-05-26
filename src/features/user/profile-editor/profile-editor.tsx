@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import { Button, Modal, Stack, Textarea, Tooltip } from '@mantine/core';
@@ -15,6 +15,8 @@ const ProfileEditor = () => {
   const store = useUserStore();
   const { t: translate } = useTranslation();
   const { name, aboutMe } = store;
+
+  console.log({ name });
 
   const t = useCallback(
     (key: string, args?: Record<string, any>) =>
@@ -57,6 +59,13 @@ const ProfileEditor = () => {
     }
   };
 
+  useEffect(() => {
+    form.setValues({
+      userName: name ?? '',
+      aboutMe: aboutMe ?? '',
+    });
+  }, [isOpened]);
+
   return (
     <>
       <Tooltip label={t('tooltip')}>
@@ -73,7 +82,6 @@ const ProfileEditor = () => {
         opened={isOpened}
         onClose={() => {
           setOpenedState(false);
-          form.reset();
         }}
       >
         <Form form={form}>

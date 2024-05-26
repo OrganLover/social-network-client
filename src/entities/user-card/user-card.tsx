@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
-import { Avatar, Flex, Indicator, Paper, Stack, Text } from '@mantine/core';
+import { Avatar, Flex, Paper, Stack, Text } from '@mantine/core';
 import { useUsersStore } from '@shared/providers';
 
 import type { UserCardProps } from './user-card.interface';
@@ -18,7 +18,8 @@ const UserCard = ({ id }: UserCardProps) => {
     return currentUser?.profile.userName
       ?.split(' ')
       .map(part => part[0])
-      .join('');
+      .join('')
+      .substring(0, 3);
   }, [currentUser?.profile.userName]);
 
   const avatarUrl = useMemo(() => {
@@ -43,20 +44,18 @@ const UserCard = ({ id }: UserCardProps) => {
       onClick={() => navigate(`/users/${currentUser.id}`)}
       style={{ cursor: 'pointer' }}
     >
-      <Stack gap={5}>
+      <Stack gap={5} maw={200}>
         <Flex justify={'left'} align={'center'}>
-          <Indicator size={10}>
-            <Avatar
-              w={200}
-              h={200}
-              radius={'md'}
-              src={avatarUrl}
-              size={200}
-              color='cyan'
-            >
-              {avatarSymbols}
-            </Avatar>
-          </Indicator>
+          <Avatar
+            w={200}
+            h={200}
+            radius={'md'}
+            src={avatarUrl}
+            size={200}
+            color='cyan'
+          >
+            {avatarSymbols}
+          </Avatar>
         </Flex>
         <Stack>
           <Text size={'xl'}>{currentUser.profile.userName}</Text>

@@ -48,7 +48,18 @@ const MessageForm = () => {
           onKeyDown={onEnterPress}
         />
 
-        <IconCard Icon={PiPaperPlane} shadow='xl' onClick={onSendMessage} />
+        <IconCard
+          Icon={PiPaperPlane}
+          shadow='xl'
+          onClick={onSendMessage}
+          containerStyles={{
+            width: 40,
+            height: 40,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        />
       </Group>
     </Form>
   );

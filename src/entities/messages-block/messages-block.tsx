@@ -57,8 +57,10 @@ const MessagesBlock = () => {
     return null;
   }
 
+  const maxWidth = Math.min(messageBoardWidth / 1.2, 500);
+
   return (
-    <Stack ref={containerRef} h={'100%'}>
+    <Stack ref={containerRef} flex={1}>
       <ScrollArea
         h={messageBoardHeight}
         scrollbars={'y'}
@@ -73,7 +75,7 @@ const MessagesBlock = () => {
                 shadow='xl'
                 radius={'md'}
                 c={'blue'}
-                maw={messageBoardWidth / 2.1}
+                maw={maxWidth}
                 p={10}
                 m={10}
               >

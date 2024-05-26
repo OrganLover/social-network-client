@@ -17,7 +17,7 @@ const Header = ({ isNavbarOpened, toggleNavbar }: HeaderProps) => {
           <Burger
             opened={isNavbarOpened}
             onClick={toggleNavbar}
-            hiddenFrom='sm'
+            hiddenFrom='md'
             size='sm'
           />
           <LangToggle />

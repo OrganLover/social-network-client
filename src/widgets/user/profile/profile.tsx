@@ -6,7 +6,6 @@ import {
   Button,
   Divider,
   Grid,
-  Indicator,
   Loader,
   Stack,
   Text,
@@ -36,7 +35,8 @@ const UserProfile = () => {
     return name
       ?.split(' ')
       .map(part => part[0])
-      .join('');
+      .join('')
+      .substring(0, 3);
   }, [name]);
 
   if (isLoading) {
@@ -47,31 +47,33 @@ const UserProfile = () => {
     <Grid grow>
       <Grid.Col span={1}>
         <Stack justify={'left'} align={'center'}>
-          <Indicator size={15}>
-            <Avatar
-              w={300}
-              h={300}
-              radius={'md'}
-              src={avatarUrl}
-              size={200}
-              color='cyan'
-              onClick={() => inputRef.current?.click()}
-            >
-              {avatarSymbols}
-            </Avatar>
-            <input
-              type='file'
-              ref={inputRef}
-              style={{ display: 'none' }}
-              onChange={e =>
-                e.target.files?.[0]
-                  ? user.saveAvatar(e.target.files[0])
-                  : undefined
-              }
-            />
-          </Indicator>
+          <Avatar
+            w={300}
+            h={300}
+            radius={'md'}
+            src={avatarUrl}
+            size={200}
+            color='cyan'
+            onClick={() => inputRef.current?.click()}
+          >
+            {avatarSymbols}
+          </Avatar>
+          <input
+            type='file'
+            ref={inputRef}
+            style={{ display: 'none' }}
+            onChange={e =>
+              e.target.files?.[0]
+                ? user.saveAvatar(e.target.files[0])
+                : undefined
+            }
+          />
           {!owner.isOwner ? (
-            <Button w={'100%'} onClick={() => setModalOpenedState(true)}>
+            <Button
+              w={'100%'}
+              maw={300}
+              onClick={() => setModalOpenedState(true)}
+            >
               {t(`${USER_PAGE_TRANSLATION_PREFIX}.start-dialog`)}
             </Button>
           ) : null}
