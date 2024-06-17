@@ -54,20 +54,11 @@ const UserProfile = () => {
             src={avatarUrl}
             size={200}
             color='cyan'
+            style={{ cursor: owner.isOwner ? 'pointer' : 'default' }}
             onClick={() => inputRef.current?.click()}
           >
             {avatarSymbols}
           </Avatar>
-          <input
-            type='file'
-            ref={inputRef}
-            style={{ display: 'none' }}
-            onChange={e =>
-              e.target.files?.[0]
-                ? user.saveAvatar(e.target.files[0])
-                : undefined
-            }
-          />
           {!owner.isOwner ? (
             <Button
               w={'100%'}
@@ -76,7 +67,18 @@ const UserProfile = () => {
             >
               {t(`${USER_PAGE_TRANSLATION_PREFIX}.start-dialog`)}
             </Button>
-          ) : null}
+          ) : (
+            <input
+              type='file'
+              ref={inputRef}
+              style={{ display: 'none' }}
+              onChange={e =>
+                e.target.files?.[0]
+                  ? user.saveAvatar(e.target.files[0])
+                  : undefined
+              }
+            />
+          )}
 
           <CreateDialogModal
             isOpened={isModalOpened}
