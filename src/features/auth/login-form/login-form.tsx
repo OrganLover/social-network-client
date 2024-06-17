@@ -82,6 +82,7 @@ const LoginForm = () => {
         <Stack align='center' maw={300} w={'100%'}>
           <Input
             description={tLabel('email')}
+            type='email'
             {...form.getInputProps('email')}
           />
           <PasswordInput
