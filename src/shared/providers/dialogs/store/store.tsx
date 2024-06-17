@@ -95,7 +95,6 @@ export default class DialogsStore {
       WS_DIALOG_EVENT.MESSAGE.NEW,
       (payload: NewMessageEventPayload) => {
         this.selectedDialog?.messages.push(payload);
-        console.log(payload);
         config?.newMessageHandler();
       },
     );

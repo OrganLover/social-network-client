@@ -17,7 +17,6 @@ export default class PostRatingStore {
   public onLike() {
     this.toggle('isLiked');
     this.isDisliked = false;
-    console.log(this.likesCount);
   }
 
   public onDislike() {

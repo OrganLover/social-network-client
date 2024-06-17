@@ -16,8 +16,6 @@ const ProfileEditor = () => {
   const { t: translate } = useTranslation();
   const { name, aboutMe } = store;
 
-  console.log({ name });
-
   const t = useCallback(
     (key: string, args?: Record<string, any>) =>
       translate(`${PROFILE_EDITOR_TRANSLATION_PREFIX}.${key}`, args),

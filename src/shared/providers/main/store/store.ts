@@ -46,7 +46,6 @@ export default class OwnerStore {
     const response: RegisterUserResponsePayload = yield auth.register(payload);
 
     if (response.error) {
-      console.log(response.error);
       return response.error;
     }
 
