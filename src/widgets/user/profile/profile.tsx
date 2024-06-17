@@ -14,10 +14,13 @@ import {
 import { useMainStore, useUserStore } from '@shared/providers';
 import CreateDialogModal from './components/create-dialog-modal/create-dialog-modal';
 import { USER_PAGE_TRANSLATION_PREFIX } from './profile.constant';
+import { useDialog } from '@shared/hooks';
+import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
   const [isModalOpened, setModalOpenedState] = useState(false);
 
+  const navigate = useNavigate();
   const user = useUserStore();
   const { owner } = useMainStore();
   const { name, aboutMe, avatarUrl, isLoading } = user;
@@ -38,6 +41,8 @@ const UserProfile = () => {
       .join('')
       .substring(0, 3);
   }, [name]);
+
+  const dialog = useDialog(user.id);
 
   if (isLoading) {
     return <Loader />;
@@ -63,9 +68,19 @@ const UserProfile = () => {
             <Button
               w={'100%'}
               maw={300}
-              onClick={() => setModalOpenedState(true)}
+              onClick={() => {
+                if (!dialog) {
+                  return setModalOpenedState(true);
+                }
+
+                navigate('/dialogs', { state: { dialogId: dialog.id } });
+              }}
             >
-              {t(`${USER_PAGE_TRANSLATION_PREFIX}.start-dialog`)}
+              {t(
+                `${USER_PAGE_TRANSLATION_PREFIX}.${
+                  dialog ? 'go-to-dialog' : 'start-dialog'
+                }`,
+              )}
             </Button>
           ) : (
             <input

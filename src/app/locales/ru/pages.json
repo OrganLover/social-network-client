@@ -31,6 +31,7 @@
     },
     "user-page": {
       "start-dialog": "Начать диалог",
+      "go-to-dialog": "Перейти к диалогу",
       "create-dialog-modal": {
         "message": "Сообщение",
         "send-message": "Отправить сообщение"

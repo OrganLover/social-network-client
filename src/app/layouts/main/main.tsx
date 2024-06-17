@@ -3,11 +3,14 @@ import {
   RouterProvider,
   createBrowserRouter,
 } from 'react-router-dom';
+import { DialogsStoreProvider, useMainStore } from '@shared/providers';
 import { DialogsPage, UserPage, UsersPage } from '@pages';
 
 import MainLayoutContent from './components/content';
 
 const MainLayout = () => {
+  const { owner } = useMainStore();
+
   const router = createBrowserRouter([
     {
       element: <MainLayoutContent />,
@@ -36,7 +39,11 @@ const MainLayout = () => {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <DialogsStoreProvider userId={owner.id!}>
+      <RouterProvider router={router} />
+    </DialogsStoreProvider>
+  );
 };
 
 export default MainLayout;

@@ -41,6 +41,7 @@ export default class DialogsStore {
   }
 
   public setupDialogs = flow(function* (this: DialogsStore) {
+    console.log(this.userId);
     this.dialogs = yield user.dialog.getUserDialogs(this.userId);
   });
 
